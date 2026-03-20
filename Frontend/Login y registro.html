@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Seguro - Alquimia Tech</title>
+    <style>
+        :root {
+            --bg-space: #05070a;
+            --primary-purple: #7000ff;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --neon-green: #00ff88;
+            --neon-red: #ff4d4d;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at center, #1a2a6c 0%, #05070a 70%, #301934 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--silver);
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            display: none; 
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        #loginCard, #forgotCard { width: 100%; max-width: 450px; }
+        #registerCard { width: 100%; max-width: 800px; padding-top: 70px; }
+
+        .card.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-small {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.95);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            z-index: 20;
+        }
+
+        .logo-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .back-arrow {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 15;
+        }
+
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .header-section span { color: var(--gold); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; display: block; }
+        .header-section h1 {
+            margin: 10px 0; font-weight: 800; letter-spacing: 2px; font-size: 1.6rem;
+            background: linear-gradient(to right, var(--silver), var(--gold), var(--silver));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .divider { height: 2px; width: 60px; background: var(--gold); margin: 15px auto; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .full-width { grid-column: span 2; }
+
+        label { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; display: block; }
+
+        input, select {
+            width: 100%; padding: 12px;
+            background: rgba(39, 37, 37, 0.986);
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            border-radius: 8px; color: var(--silver);
+            box-sizing: border-box;
+            font-size: 0.9rem;
+        }
+
+        input:focus, select:focus { outline: none; border-color: var(--gold); }
+        option { background: #1a1a1a; color: var(--silver); }
+
+        .btn-main {
+            width: 100%; padding: 16px;
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            color: white; border: 1px solid var(--gold);
+            border-radius: 8px; font-weight: bold;
+            cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2px; margin-top: 10px;
+            transition: transform 0.2s;
+        }
+
+        .btn-main:active { transform: scale(0.98); }
+
+        .toggle-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gold); cursor: pointer; }
+        .input-container { position: relative; }
+
+        .password-strength-wrapper { margin-top: 8px; }
+        .strength-meter { height: 4px; width: 100%; background: #333; border-radius: 2px; overflow: hidden; margin-bottom: 5px; }
+        .strength-bar { height: 100%; width: 0%; transition: all 0.3s ease; }
+        .strength-text { font-size: 0.65rem; color: #888; font-weight: 600; text-transform: uppercase; }
+
+        .bar-weak { background: var(--neon-red); width: 33%; }
+        .bar-medium { background: var(--gold); width: 66%; }
+        .bar-strong { background: var(--neon-green); width: 100%; }
+
+        .msg-validation { font-size: 0.65rem; margin-top: 8px; font-weight: 600; text-align: center; }
+        .error-text { color: var(--neon-red); }
+        .success-text { color: var(--neon-green); }
+
+        .footer { margin-top: 25px; text-align: center; font-size: 0.85rem; color: #888; }
+        .footer a { color: var(--gold); text-decoration: none; font-weight: 600; cursor: pointer; }
+        .forgot-link { display: block; text-align: right; margin-top: 10px; font-size: 0.75rem; color: var(--gold); cursor: pointer; }
+
+        @media (max-width: 650px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    
+    <div class="card active" id="loginCard">
+        <div class="logo-small">
+            <img src="" alt="Logo">
+        </div>
+        <div class="header-section">
+            <span>Portal de Seguridad</span>
+            <h1>INICIAR SESIÓN</h1>
+            <div class="divider"></div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="usuario@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label>Clave</label>
+                <div class="input-container">
+                    <input type="password" id="loginPass" oninput="updateStrength(this, 'loginStrengthBar', 'loginStrengthText')" placeholder="••••••••" required>
+                    <button type="button" class="toggle-btn" onclick="togglePass(this)">👁️</button>
+                </div>
+                <div class="password-strength-wrapper">
+                    <div class="strength-meter"><div id="loginStrengthBar" class="strength-bar"></div></div>
+                    <span id="loginStrengthText" class="strength-text">Validando seguridad</span>
+                </div>
+                <a class="forgot-link" onclick="switchCard('forgotCard')">¿Olvidaste tu contraseña?</a>
+            </div>
+            <button type="submit" class="btn-main">Iniciar sesión</button>
+            <div class="footer">
+                <p>¿No tienes cuenta? <a onclick="switchCard('registerCard')">Regístrate</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="card" id="registerCard">
+        <div class="logo-small">
+            <img src="" alt="Logo">
+        </div>
+        <div class="back-arrow" onclick="switchCard('loginCard')"><span>←</span> VOLVER</div>
+        <div class="header-section">
+            <span>Nuevo Protocolo</span>
+            <h1>CREAR CUENTA</h1>
+            <div class="divider"></div>
+        </div>
+        <form onsubmit="return handleRegister(event)">
+            <div class="form-grid">
+                <div class="form-group"><label>Nombres</label><input type="text" required></div>
+                <div class="form-group"><label>Apellidos</label><input type="text" required></div>
+                
+                <div class="form-group">
+                    <label>Tipo de documento</label>
+                    <select required>
+                        <option value="" selected disabled>Seleccione tipo</option>
+                        <option value="cc">Cédula de Ciudadanía</option>
+                        <option value="ce">Cédula de Extranjería</option>
+                        <option value="pasaporte">Pasaporte</option>
+                        <option value="pep">PEP</option>
+                        <option value="ppt">PPT</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Número de identificación</label>
+                    <input type="number" placeholder="0000000000" required>
+                </div>
+
+                <div class="form-group full-width"><label>Dirección</label><input type="text" required></div>
+                <div class="form-group"><label>Email</label><input type="email" required></div>
+                <div class="form-group"><label>Teléfono</label><input type="tel" required></div>
+                
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <div class="input-container">
+                        <input type="password" id="regPass" oninput="updateStrength(this, 'regStrengthBar', 'regStrengthText'); checkMatch()" required>
+                    </div>
+                    <div class="password-strength-wrapper">
+                        <div class="strength-meter"><div id="regStrengthBar" class="strength-bar"></div></div>
+                        <span id="regStrengthText" class="strength-text">Validando seguridad</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirmar Clave</label>
+                    <input type="password" id="confirmPass" oninput="checkMatch()" required>
+                </div>
+            </div>
+            <div id="reg-msg" class="msg-validation"></div>
+            <button type="submit" class="btn-main">Registrar Usuario</button>
+        </form>
+    </div>
+
+    <div class="card" id="forgotCard">
+        <div class="back-arrow" onclick="switchCard('loginCard')"><span>←</span> VOLVER</div>
+        <div class="header-section">
+            <span>Soporte</span>
+            <h1>RECUPERAR CLAVE</h1>
+            <div class="divider"></div>
+        </div>
+        <p style="font-size: 0.8rem; text-align: center; color: #aaa; margin-bottom: 20px;">Se enviará un enlace de recuperación a su correo electrónico.</p>
+        <form onsubmit="alert('Enlace de recuperación enviado.'); switchCard('loginCard'); return false;">
+            <div class="form-group">
+                <label>Email Registrado</label>
+                <input type="email" placeholder="usuario@gmail.com" required>
+            </div>
+            <button type="submit" class="btn-main">Enviar Enlace</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function switchCard(cardId) {
+        document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+        document.getElementById(cardId).classList.add('active');
+    }
+
+    function togglePass(btn) {
+        const input = btn.parentElement.querySelector('input');
+        input.type = input.type === 'password' ? 'text' : 'password';
+        btn.innerText = input.type === 'password' ? '👁️' : '🔒';
+    }
+
+    function updateStrength(input, barId, textId) {
+        const val = input.value;
+        const bar = document.getElementById(barId);
+        const txt = document.getElementById(textId);
+        
+        bar.className = 'strength-bar';
+        
+        if (val.length === 0) {
+            txt.innerText = "Esperando entrada...";
+        } else if (val.length < 6) {
+            bar.classList.add('bar-weak');
+            txt.innerText = "Debilidad Detectada";
+            txt.style.color = "var(--neon-red)";
+        } else if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.length >= 8) {
+            bar.classList.add('bar-strong');
+            txt.innerText = "Encriptación Fuerte";
+            txt.style.color = "var(--neon-green)";
+        } else {
+            bar.classList.add('bar-medium');
+            txt.innerText = "Seguridad Media";
+            txt.style.color = "var(--gold)";
+        }
+    }
+
+    function checkMatch() {
+        const pass = document.getElementById('regPass').value;
+        const confirm = document.getElementById('confirmPass').value;
+        const msg = document.getElementById('reg-msg');
+        
+        if (confirm === "") {
+            msg.innerText = "";
+        } else if (pass !== confirm) {
+            msg.innerText = "⚠ Las claves no coinciden";
+            msg.className = "msg-validation error-text";
+        } else {
+            msg.innerText = "✔ Claves sincronizadas";
+            msg.className = "msg-validation success-text";
+        }
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        const pass = document.getElementById('regPass').value;
+        const confirm = document.getElementById('confirmPass').value;
+        if (pass !== confirm) return alert("Las contraseñas no coinciden");
+        alert("Protocolo completado: Usuario creado.");
+        switchCard('loginCard');
+    }
+</script>
+
+</body>
+</html>

@@ -7,7 +7,7 @@
 ## 👤 Información del Proyecto
 * **Autor:** Karen Michel Olaya Doncel - Aprendiz
 * **Estado:** En Desarrollo 🛠️
-* **Enfoque Visual:** Glassmorphism (Purple, Blue, Black & Gold)
+* **Enfoque Visual:** Colorimetria (Morado, Azul, Negro y Dorado)
 
 ---
 

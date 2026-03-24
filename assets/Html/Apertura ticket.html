@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apertura de Ticket | Alquimia Tech</title>
+    <style>
+        :root {
+            --bg-space: #05070a;
+            --primary-purple: #7000ff;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top left, #1a2a6c 0%, #05070a 70%, #301934 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--silver);
+            padding: 20px;
+        }
+
+        .ticket-card {
+            background: rgba(13, 17, 23, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 40px rgba(112, 0, 255, 0.25);
+            width: 100%;
+            max-width: 650px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .header-section span { color: var(--gold); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; display: block; }
+        .header-section h1 {
+            margin: 10px 0; font-weight: 800; letter-spacing: 2px; font-size: 1.8rem;
+            background: linear-gradient(to right, var(--silver), var(--gold), var(--silver));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .badge-step {
+            background: var(--gold);
+            color: black;
+            font-weight: 800;
+            font-size: 0.65rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sistema de Grilla */
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        
+        .form-group { margin-bottom: 20px; text-align: start; }
+        .full-width { grid-column: span 2; }
+
+        label { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; display: block; }
+
+        input, select, textarea {
+            width: 100%; padding: 12px;
+            background: rgba(86, 6, 105, 0.2);
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            border-radius: 8px; color: var(--silver);
+            font-size: 0.95rem; transition: 0.3s; box-sizing: border-box;
+        }
+
+        select option { background: #1a1a1a; color: white; }
+
+        input:focus, select:focus, textarea:focus { 
+            outline: none; border-color: var(--gold); 
+            background: rgba(112, 0, 255, 0.1); 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); 
+        }
+
+        /* Estilos de Accesorios (Integrados al tema oscuro) */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px;
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(112, 0, 255, 0.05);
+        }
+
+        .checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .checkbox-item label { margin-bottom: 0; color: var(--silver); text-transform: none; letter-spacing: 0; }
+        .checkbox-item input[type="checkbox"] { width: auto; cursor: pointer; }
+
+        #input-ptrp {
+            margin-top: 10px;
+            border-color: var(--gold);
+        }
+
+        .btn-open {
+            width: 100%; padding: 16px;
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            color: white; border: 1px solid var(--gold);
+            border-radius: 8px; font-weight: bold;
+            cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2px; transition: 0.4s; margin-top: 10px;
+        }
+
+        .btn-open:hover { transform: scale(1.01); box-shadow: 0 0 25px rgba(112, 0, 255, 0.5); }
+
+        /* Media Query Corregido */
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ticket-card">
+    <div class="header-section">
+        <div class="badge-step">FASE DE ADMISIÓN</div>
+        <span>Protocolo de Ingreso</span>
+        <h1>APERTURA DE TICKET</h1>
+    </div>
+
+    <form>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Tipo de Dispositivo</label>
+                <select name="tipo" required>
+                   <option value="">Seleccione el tipo de dispositivo</option>
+                    <option value="laptop_gamer">Laptop (Gamer/Alto Rendimiento)</option>
+                    <option value="desktop_tower">PC de Escritorio (Torre)</option>
+                    <option value="all_in_one">All-in-One (iMac/HP/etc)</option>
+                    <option value="mini_pc">Mini PC / NUC</option>
+                    <option value="smartphone">Smartphone</option>
+                    <option value="tablet">Tablet</option>
+                    <option value="console_nextgen">Consola de Sobremesa (PS5/Xbox Series)</option>
+                    <option value="console_handheld">Consola Portátil (Switch/Steam Deck)</option>
+                    <option value="retro_console">Consola Retro/Antigua</option>
+                    <option value="server_workstation">Servidor / Estación de Trabajo</option>
+                    <option value="router_modem">Router / Sistema Mesh</option>
+                    <option value="nas">Almacenamiento en Red (NAS)</option>
+                    <option value="monitor">Monitor / Pantalla</option>
+                    <option value="printer">Impresora / Multifuncional</option>
+                    <option value="audio_gear">Equipo de Audio / DAC / Altavoces</option>
+                    <option value="iot">Dispositivo IoT / Smart Home</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Prioridad de Servicio</label>
+                <select name="prioridad" required>
+                    <option value="1">Nivel 1 - Programado</option>
+                    <option value="2">Nivel 2 - Estándar</option>
+                    <option value="3">Nivel 3 - Intermedio</option>
+                    <option value="4">Nivel 4 - Pro</option>
+                    <option value="5">Nivel 5 - Emergencia</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label>Técnico Asignado</label>
+                <select name="id_tecnico">
+                    <option value="1">Técnico Nivel 1</option>
+                    <option value="2">Técnico Nivel 2</option>
+                    <option value="3">Técnico Nivel 3</option>
+                    <option value="2">Técnico Nivel 4</option>
+                    <option value="3">Técnico Nivel 5</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label>Accesorios Entregados</label>
+                <div class="checkbox-group" id="container-accesorios">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="acc_cargador" id="acc_cargador">
+                        <label for="acc_cargador">Cargador</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="acc_funda" id="acc_funda">
+                        <label for="acc_funda">Funda / Maletín</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check-ptrp" onchange="togglePtrp()">
+                        <label for="check-ptrp">Otros (Especificar)</label>
+                    </div>
+                    <input type="text" id="input-ptrp" name="acc_ptrp_desc" 
+                           placeholder="Escribe los detalles aquí..." 
+                           style="display:none;">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-open">Generar Orden de Servicio</button>
+    </form>
+</div>
+
+<script>
+    function togglePtrp() {
+        const checkbox = document.getElementById('check-ptrp');
+        const input = document.getElementById('input-ptrp');
+        
+        if (checkbox.checked) {
+            input.style.display = 'block';
+            input.focus();
+        } else {
+            input.style.display = 'none';
+            input.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

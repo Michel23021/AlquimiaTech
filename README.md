@@ -1,49 +1,41 @@
- Alquimia Tech - Sistema de Gestión Integral 🧪💻
+# 🧪 ALQUIMIA TECH: SISTEMA DE GESTIÓN INTEGRAL
+ **Solución digital avanzada para la optimización de servicios técnicos y operativos.**
+
+# 📖 DESCRIPCIÓN DEL PROYECTO
+* Alquimia Tech es una solución de software avanzada diseñada específicamente para centralizar y optimizar la operación integral de establecimientos dedicados al Soporte Técnico de equipos de cómputo. El sistema surge como una respuesta técnica para transformar procesos manuales en flujos de trabajo automatizados, permitiendo un control riguroso sobre el ciclo de vida de cada reparación.
+
+* A través de una arquitectura de datos robusta, la plataforma integra el seguimiento de diagnósticos con un sistema de control de reparaciones y gestión de tickets en tiempo real. El enfoque principal es garantizar la integridad de la información y mejorar la eficiencia administrativa, ofreciendo una herramienta escalable que se adapta a las exigencias técnicas del mercado actual.
 
 
-Alquimia Tech es una solución de software robusta diseñada para transformar y optimizar la operación de establecimientos de soporte técnico de equipos de cómputo y servicios de cafetería. Este ecosistema digital integra de manera fluida la gestión de inventarios, el control de reparaciones y un sistema de tickets para mejorar la experiencia del cliente y la eficiencia administrativa.
-
-🎨 Identidad Visual
-El proyecto se basa en una estética técnica y elegante, utilizando una paleta de colores específica:
-
-Morado y Azul: Para profundidad y modernidad.
-
-Negro y Dorado: Para un acabado profesional y premium.
-
-🛠️ Especificaciones Técnicas
-Estado: En Desarrollo.
-
-Arquitectura: Basada en modelos de bases de datos relacionales para garantizar la integridad de la información.
-
-Tecnologías:
-
-Backend: Java.
-
-Base de Datos: SQL (Arquitectura lógica y física).
-
-Frontend: HTML/CSS/JS con enfoque en UI/UX.
-
-🚀 Funcionalidades Principales
-
-Gestión de Soporte Técnico: Control detallado de reparaciones y estado de los equipos.
-
-Sistema de Tickets: Seguimiento en tiempo real de las solicitudes de los usuarios.
+# 🎨 ENFOQUE VISUAL Y UI/UX
+El diseño se rige por una colorimetría premium que transmite tecnología y elegancia:
+*   **Morado y Azul:** Modernidad y profundidad técnica.
+*   **Dorado y Negro:** Sofisticación y profesionalismo.
 
 
+# ⚙️ ESPECIFICACIONES TÉCNICAS
+*   **ROL:** Proyecto de formación en Análisis y Desarrollo de Software (ADSO).
+*   **ESTADO:** 🛠️ En Desarrollo.
+*   **TECNOLOGÍAS:** Java (Lógica), SQL (Arquitectura de datos) y Web Stack (HTML/CSS/JS).
 
-🧠 Enfoque de Desarrollo
-Este proyecto se construye bajo un enfoque constructivo, priorizando la escalabilidad del código y la resolución lógica de procesos complejos. Se han aplicado principios de normalización de bases de datos y patrones de diseño para asegurar una solución de grado profesional.
 
-👤 Información del Proyecto
-Autor: Karen Michel Olaya Doncel - Aprendiz ADSO.
+# 🚀 FUNCIONALIDADES CLAVE
+1.  **GESTIÓN TÉCNICA:** Seguimiento detallado de diagnósticos y reparaciones.
+2.  **MÓDULO DE TICKETS:** Sistema de atención al cliente organizado por prioridades.
+   
+# 🧠 MENTALIDAD DE DESARROLLO
+* Este proyecto se fundamenta en un enfoque constructivo y una mentalidad analítica. El desarrollo de Alquimia Tech no solo se trata de escribir código, sino de aplicar los siguientes pilares de ingeniería:
 
-Institución: SENA.
+* Arquitectura Lógica y Física: Priorizo la integridad de los datos mediante una estructura SQL normalizada, asegurando que la información sea escalable y segura.
 
-Ubicación: Bogotá, Colombia.
+* Pensamiento Algorítmico: Aplico una metodología de resolución de problemas basada en la descomposición de procesos complejos en módulos funcionales y eficientes.
 
-## Cómo explorar este repositorio
-* `/frontend`: Archivos `.html` y hojas de estilo `.css`.
-* `/docs`: Diagramas de Entidad-Relación y documentación técnica.
+* Calidad de Software: Enfoque orientado a la mantenibilidad del código en Java, siguiendo estándares técnicos que garantizan una transición fluida entre el desarrollo y la implementación final.
 
----
-© 2026 Alquimia Tech - Software Académico
+* Evolución Continua: Como aprendiz de ADSO, integro constantemente nuevas competencias técnicas, desde la optimización de consultas en bases de datos hasta la mejora de la experiencia de usuario (UI/UX).
+
+
+# 👤 INFORMACIÓN DE LA AUTORA
+*   **Nombre:** Karen Michel Olaya Doncel
+*   **Institución:** SENA
+*   **Ubicación:** Bogotá, Colombia

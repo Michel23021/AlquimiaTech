@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlquimiaTech | Portal Usuario</title>
+    <style>
+        /* Paleta de colores e identidad unificada con Admin */
+        :root {
+            --bg-deep: #05070a;
+            --primary-purple: #7000ff;
+            --sidebar-purple: #1a0633;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+            --neon-blue: #00f2ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at center, #1b3081 0%, #05070a 70%, #2e1649ee 100%);
+            margin: 0;
+            color: var(--silver);
+            display: grid;
+            grid-template-columns: 280px 1fr; 
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- BARRA LATERAL IZQUIERDA (ASIDE) --- */
+        aside {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            box-sizing: border-box;
+        }
+
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 20px var(--gold-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 2.8rem;
+            color: var(--gold);
+        }
+
+        .user-id-tag {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .nav-item {
+            background: var(--sidebar-purple); 
+            color: var(--gold);
+            text-decoration: none;
+            padding: 16px 22px;
+            border-radius: 14px; 
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 6px solid var(--gold); 
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #230a42;
+            box-shadow: -3px 4px 20px rgba(112, 0, 255, 0.4);
+            transform: translateX(4px);
+        }
+
+        /* --- EFECTO INTERACTIVO DE INVERSIÓN --- */
+        .nav-item:active, 
+        .btn-plus-circle:active,
+        .btn-form-action:active,
+        .status-select:active,
+        .editable-cell:active {
+            filter: invert(1) hue-rotate(180deg);
+            transform: scale(0.97);
+            transition: 0s;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            padding: 40px 50px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .top-info-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .user-profile-tag {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--glass);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        /* --- CUADRÍCULA OPTIMIZADA DE 3 COLUMNAS --- */
+        .boceto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columnas perfectas en una fila */
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .boceto-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column; /* Alineación vertical premium */
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .boceto-card:hover {
+            border-color: var(--primary-purple);
+            background: rgba(112, 0, 255, 0.06);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(112, 0, 255, 0.2);
+        }
+
+        .card-texts h4 { 
+            margin: 0 0 10px 0; 
+            color: var(--gold); 
+            font-size: 1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+        }
+        
+        .card-texts p { 
+            margin: 0; 
+            color: #aaa; 
+            font-size: 0.8rem; 
+            line-height: 1.5; 
+        }
+
+        /* Botón '+' centrado arriba */
+        .btn-plus-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sidebar-purple), var(--primary-purple));
+            border: 2px solid var(--gold);
+            color: white;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 20px; /* Separación del texto inferior */
+        }
+
+        .btn-plus-circle:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 0 25px var(--primary-purple);
+            background: var(--primary-purple);
+        }
+
+        /* --- FORMULARIOS DINÁMICOS --- */
+        .form-overlay-card {
+            background: rgba(5, 7, 10, 0.9);
+            border: 1px solid rgba(214, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 35px;
+            display: none;
+            animation: slideDown 0.3s ease forwards;
+        }
+        .form-overlay-card h3 { margin: 0 0 20px 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.72rem; color: var(--gold); text-transform: uppercase; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px; }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(147, 43, 245, 0.5);
+            border-radius: 8px;
+            color: white;
+            padding: 11px 14px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .input-field:focus { border-color: var(--gold); background: rgba(0,0,0,0.4); box-shadow: 0 0 8px rgba(212,175,55,0.2); }
+
+        .btn-form-action {
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            border: 1px solid var(--gold);
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            padding: 11px 25px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.3);
+        }
+
+        /* --- SECCIÓN TABLA --- */
+        .table-container {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .table-container h3 { 
+            margin-top: 0; 
+            margin-bottom: 25px; 
+            color: var(--silver); 
+            font-size: 1rem; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            font-weight: 600;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        
+        th { 
+            text-align: left; 
+            color: var(--gold); 
+            font-size: 0.75rem; 
+            padding: 16px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3); 
+            font-weight: bold;
+        }
+        
+        td { 
+            padding: 16px; 
+            font-size: 0.85rem; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+            color: #e2e2e2; 
+        }
+
+        .editable-cell {
+            background: transparent;
+            border: 1px solid transparent;
+            color: inherit;
+            padding: 6px;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+            font-size: inherit;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .editable-cell:hover { background: rgba(255, 255, 255, 0.05); }
+
+        .status-select {
+            background: rgba(0, 0, 0, 0.6);
+            color: inherit;
+            border: 1px solid;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            outline: none;
+            text-transform: uppercase;
+        }
+        .status-select.proceso { border-color: var(--neon-blue); color: var(--neon-blue); }
+        .status-select.terminado { border-color: #00ff88; color: #00ff88; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsivo para pantallas medianas y pequeñas */
+        @media (max-width: 1100px) { .boceto-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { body { grid-template-columns: 1fr; } aside { display: none; } }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="profile-avatar-large">👤</div>
+        <div class="user-id-tag">Cliente ID: #0922</div>
+        
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">🏠 INICIO</a>
+            <a href="#" class="nav-item" onclick="openModule('Registro de Equipo')">💻 EQUIPOS</a>
+            <a href="#" class="nav-item" onclick="openModule('Gestión de Marcas')">🏷️ MARCAS</a>
+        </nav>
+        
+        <div style="margin-top: auto; width: 100%;">
+            <a href="#" class="nav-item" onclick="alert('Cerrando sesión...')" style="color: #ffcc00; border-left-color: #961616; background: rgba(255, 0, 0, 0.1);">
+                🔒 SALIR
+            </a>
+        </div>
+    </aside>
+
+    <main>
+        <div class="top-info-banner">
+            <div>
+                <span style="color: var(--gold); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">AlquimiaTech Central</span>
+                <h2 style="margin: 5px 0 0 0; color: var(--gold); font-size: 1.5rem;">Portal de Control Operativo</h2>
+            </div>
+            <div class="user-profile-tag">
+                <span style="font-size: 0.8rem; color: var(--gold); font-weight: bold;">ID: #0922</span>
+            </div>
+        </div>
+
+        <div id="dynamic-form-container" class="form-overlay-card">
+            <h3 id="form-title">Módulo de Usuario</h3>
+            <form onsubmit="event.preventDefault(); alert('Solicitud registrada correctamente.'); closeModule();">
+                <div id="form-body"></div>
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <button type="submit" class="btn-form-action">Enviar Solicitud</button>
+                    <button type="button" class="input-field" onclick="closeModule()" style="background: transparent; border: 1px solid #ff4444; color: #ff4444; width: auto; padding: 11px 25px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="boceto-grid">
+            <div class="boceto-card">
+                <button class="btn-plus-circle" onclick="openModule('Apertura Ticket')">+</button>
+                <div class="card-texts">
+                    <h4>Apertura Ticket</h4>
+                    <p>Reporta una falla de hardware para revisión técnica.</p>
+                </div>
+            </div>
+
+            <div class="boceto-card">
+                <button class="btn-plus-circle" onclick="openModule('Registro de Equipo')">+</button>
+                <div class="card-texts">
+                    <h4>Registro Equipo</h4>
+                    <p>Vincula un nuevo dispositivo a tu historial.</p>
+                </div>
+            </div>
+
+            <div class="boceto-card">
+                <button class="btn-plus-circle" onclick="openModule('Gestión de Marcas')">+</button>
+                <div class="card-texts">
+                    <h4>Gestión de Marcas</h4>
+                    <p>Administra las marcas de tus dispositivos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h3>Mis Equipos en Servicio</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Ticket</th>
+                        <th>Dispositivo / Componente</th>
+                        <th>Marca Registrada</th>
+                        <th>Estado Actual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="editable-cell" readonly value="#TK-2026-01" style="color: var(--gold); font-weight: bold;"></td>
+                        <td><input type="text" class="editable-cell" readonly value="Laptop Gamer"></td>
+                        <td><input type="text" class="editable-cell" readonly value="ASUS"></td>
+                        <td>
+                            <select class="status-select proceso" disabled>
+                                <option>EN PROCESO</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="editable-cell" readonly value="#TK-2026-05" style="color: var(--gold); font-weight: bold;"></td>
+                        <td><input type="text" class="editable-cell" readonly value="Telefono apple"></td>
+                        <td><input type="text" class="editable-cell" readonly value="Apple"></td>
+                        <td>
+                            <select class="status-select terminado" disabled>
+                                <option>COMPLETADO</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        const container = document.getElementById('dynamic-form-container');
+        const title = document.getElementById('form-title');
+        const body = document.getElementById('form-body');
+
+        function openModule(moduleName) {
+            title.innerText = moduleName;
+            let htmlFields = '';
+
+            if (moduleName === 'Apertura Ticket') {
+                htmlFields = `
+                    <div class="form-group">
+                        <label>Describa la falla técnica detectada</label>
+                        <input type="text" class="input-field" placeholder="Ej. Pantalla congelada o parpadeo continuo" required>
+                    </div>`;
+            } else if (moduleName === 'Registro de Equipo') {
+                htmlFields = `
+                    <div class="form-group">
+                        <label>Modelo y Número de Serie del Equipo</label>
+                        <input type="text" class="input-field" placeholder="Ej. Dell XPS 13 - SN: 99281X" required>
+                    </div>`;
+            } else if (moduleName === 'Gestión de Marcas') {
+                htmlFields = `
+                    <div class="form-group">
+                        <label>Nombre de la nueva marca a registrar</label>
+                        <input type="text" class="input-field" placeholder="Ej. MSI, Lenovo, Sony" required>
+                    </div>`;
+            }
+
+            body.innerHTML = htmlFields;
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeModule() {
+            container.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

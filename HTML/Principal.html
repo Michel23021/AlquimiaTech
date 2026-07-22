@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlquimiaTech - Inicio</title>
+    <!-- Iconos de Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- ================= SIDEBAR (MENÚ LATERAL DE NAVEGACIÓN) ================= -->
+        <aside class="sidebar">
+            <div class="logo-details">
+                <i class="bx bx-atom icon"></i>
+                <div class="logo_name">AlquimiaTech</div>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a href="#" class="active">
+                        <i class="bx bx-grid-alt"></i>
+                        <span class="links_name">Inicio (Dashboard)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-user"></i>
+                        <span class="links_name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-receipt"></i>
+                        <span class="links_name">Tickets de Soporte</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-credit-card"></i>
+                        <span class="links_name">Pagos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-cog"></i>
+                        <span class="links_name">Configuración</span>
+                    </a>
+                </li>
+                <li class="profile">
+                    <div class="profile-details">
+                        <i class="bx bx-user-circle"></i>
+                        <div class="name_job">
+                            <div class="name">Usuario Activo</div>
+                            <div class="job">Panel de Control</div>
+                        </div>
+                    </div>
+                    <a href="login.html" id="log_out"><i class="bx bx-log-out"></i></a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- ================= MAIN CONTENT (LO QUE VE EL USUARIO AL ENTRAR) ================= -->
+        <main class="main-content">
+            <!-- Barra Superior de Bienvenida -->
+            <header class="topbar">
+                <div class="welcome-text">
+                    <h1>¡Inicio de sesión exitoso!</h1>
+                    <p>Bienvenido al sistema de gestión de AlquimiaTech. Selecciona una opción en el menú para comenzar.</p>
+                </div>
+                <div class="user-badge">
+                    <i class="bx bx-bell icon-notification"></i>
+                    <span class="status-online">● En Línea</span>
+                </div>
+            </header>
+
+            <!-- Accesos Rápidos (Botones Grandes de Acción Directa) -->
+            <section class="quick-actions">
+                <h2>Accesos Rápidos del Sistema</h2>
+                <div class="action-grid">
+                    
+                    <!-- Tarjeta de Acceso 1 -->
+                    <div class="action-card">
+                        <div class="card-icon bg-blue">
+                            <i class="bx bx-user-plus"></i>
+                        </div>
+                        <h3>Gestión de Clientes</h3>
+                        <p>Registra nuevos clientes en la plataforma o consulta sus datos.</p>
+                        <a href="#" class="btn-action">Ir a Clientes <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+
+                    <!-- Tarjeta de Acceso 2 -->
+                    <div class="action-card">
+                        <div class="card-icon bg-purple">
+                            <i class="bx bx-wrench"></i>
+                        </div>
+                        <h3>Tickets de Soporte</h3>
+                        <p>Abre una orden de servicio, actualiza diagnósticos o gestiona reparaciones.</p>
+                        <a href="#" class="btn-action">Ir a Tickets <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+
+                    <!-- Tarjeta de Acceso 3 -->
+                    <div class="action-card">
+                        <div class="card-icon bg-gold">
+                            <i class="bx bx-dollar-circle"></i>
+                        </div>
+                        <h3>Módulo de Pagos</h3>
+                        <p>Realiza liquidaciones de caja y emite las facturas de servicios terminados.</p>
+                        <a href="#" class="btn-action">Ir a Pagos <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

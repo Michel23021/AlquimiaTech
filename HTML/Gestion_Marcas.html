@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlquimiaTech | Gestión de Marcas</title>
+    <style>
+        :root {
+            --bg-deep: #05070a;
+            --primary-purple: #7000ff;
+            --sidebar-purple: #1a0633;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            
+            background: radial-gradient(circle at center, #1b3081 0%, #05070a 70%, #2e1649ee 100%);
+            margin: 0;
+            color: var(--silver);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- CONTENEDOR CON ESTILO CARD-MODERN --- */
+        .form-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* --- INPUTS CON TU ESTILO INPUT-OBS --- */
+        .input-tech {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(112, 0, 255, 0.5);
+            border-radius: 10px;
+            color: white;
+            padding: 12px 15px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .input-tech:focus {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .input-readonly {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        /* --- BOTÓN CON TU ESTILO BTN-GLOW Y EFECTO INVERTIR --- */
+        .btn-submit {
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            color: white;
+            border: 1px solid var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        /* Aplicando tu efecto de "botoneo" invertir activo */
+        .btn-submit:active {
+            filter: invert(1) hue-rotate(180deg);
+            transform: scale(0.98);
+            transition: 0s;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 25px rgba(112, 0, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <h2>Registro de Marcas</h2>
+        
+        <form action="procesar_marca.php" method="POST">
+            <!-- ID Automático según tu diagrama Karen.mysql.png -->
+            <div class="input-group">
+                <label>ID Protocolo (Automático)</label>
+                <input type="text" class="input-tech input-readonly" value="#AUTO-GEN" readonly>
+            </div>
+
+            <!-- Campo exacto del diagrama: descricionMarca -->
+            <div class="input-group">
+                <label for="descricionMarca">Nombre del Fabricante</label>
+                <input type="text" id="descricionMarca" name="descricionMarca" 
+                       class="input-tech" placeholder="Ej: ASUS, LENOVO, APPLE" 
+                       required maxlength="45">
+            </div>
+
+            <button type="submit" class="btn-submit">Guardar en Base de Datos</button>
+        </form>
+
+        <a href="Admin.html" class="back-link">◀ VOLVER AL DASHBOARD</a>
+    </div>
+
+</body>
+</html>

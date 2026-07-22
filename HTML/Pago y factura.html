@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlquimiaTech - Liquidación y Facturación</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        /* Paleta de colores e identidad unificada */
+        :root {
+            --bg-deep: #05070a;
+            --primary-purple: #7000ff;
+            --sidebar-purple: #1a0633;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+            --neon-blue: #00f2ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at center, #1b3081 0%, #05070a 70%, #2e1649ee 100%);
+            margin: 0;
+            color: var(--silver);
+            display: grid;
+            grid-template-columns: 280px 1fr; 
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: contents;
+        }
+
+        /* --- BARRA LATERAL IZQUIERDA (SIDEBAR STYLE ALQUIMIATECH) --- */
+        .sidebar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            box-sizing: border-box;
+        }
+
+        .logo-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .logo-details .icon {
+            font-size: 2rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .logo-details .logo_name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .nav-list a {
+            background: var(--sidebar-purple); 
+            color: var(--gold);
+            text-decoration: none;
+            padding: 16px 22px;
+            border-radius: 14px; 
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 6px solid transparent; 
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-list a:hover, .nav-list a.active {
+            background: #230a42;
+            border-left-color: var(--gold);
+            box-shadow: -3px 4px 20px rgba(112, 0, 255, 0.4);
+            transform: translateX(4px);
+        }
+
+        .profile {
+            margin-top: auto;
+            background: rgba(112, 0, 255, 0.1);
+            border: 1px solid rgba(147, 43, 245, 0.3);
+            padding: 15px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .profile-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-details i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .name_job .name {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .name_job .job {
+            font-size: 0.72rem;
+            color: #aaa;
+        }
+
+        #log_out {
+            color: #ff4444;
+            font-size: 1.2rem;
+            background: transparent;
+            box-shadow: none;
+            padding: 5px;
+            border-radius: 50%;
+        }
+        #log_out:hover {
+            background: rgba(255, 68, 68, 0.1);
+            transform: scale(1.1);
+        }
+
+        /* --- EFECTO INTERACTIVO DE INVERSIÓN (ON ACTIVE) --- */
+        .nav-list a:active,
+        .btn:active,
+        select:active,
+        input:active,
+        textarea:active {
+            filter: invert(1) hue-rotate(180deg);
+            transform: scale(0.98);
+            transition: 0s;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .main-content {
+            padding: 40px 50px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .topbar {
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .welcome-text h1 {
+            margin: 0;
+            color: var(--gold);
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .welcome-text p {
+            margin: 5px 0 0 0;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        /* --- SECCIÓN FORMULARIO Y CARDS DE CRISTAL --- */
+        .billing-section {
+            max-width: 900px;
+        }
+
+        .billing-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .form-card:hover {
+            border-color: rgba(112, 0, 255, 0.4);
+            box-shadow: 0 15px 35px rgba(112, 0, 255, 0.15);
+        }
+
+        .form-card h3 {
+            margin: 0 0 20px 0;
+            color: var(--gold);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .form-card h3 i {
+            font-size: 1.2rem;
+            color: var(--primary-purple);
+            text-shadow: 0 0 8px rgba(112, 0, 255, 0.6);
+        }
+
+        /* REGLAS DE FORMULARIOS */
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        label {
+            font-size: 0.72rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* CONTROLES DE INPUTS ESTILO MÍSTICO */
+        select, input[type="number"], textarea {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 43, 245, 0.4);
+            border-radius: 10px;
+            color: white;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        select option {
+            background: #0d0b18;
+            color: white;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* --- CONTENEDOR TOTAL A COBRAR --- */
+        .total-box {
+            background: linear-gradient(135deg, rgba(26, 6, 51, 0.8), rgba(112, 0, 255, 0.2));
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .total-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: var(--silver);
+        }
+
+        .total-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* --- BOTONES DE ACCIÓN --- */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 68, 68, 0.1);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            border: 1px solid var(--gold);
+            color: white;
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--primary-purple);
+            background: var(--primary-purple);
+        }
+
+        /* Responsivo */
+        @media (max-width: 900px) {
+            body { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo-details">
+                <i class="bx bx-atom icon"></i>
+                <div class="logo_name">AlquimiaTech</div>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a href="#">
+                        <i class="bx bx-grid-alt"></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-user"></i>
+                        <span class="links_name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-receipt"></i>
+                        <span class="links_name">Tickets de Soporte</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="active">
+                        <i class="bx bx-credit-card"></i>
+                        <span class="links_name">Pagos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-cog"></i>
+                        <span class="links_name">Configuración</span>
+                    </a>
+                </li>
+                <li class="profile">
+                    <div class="profile-details">
+                        <i class="bx bx-user-circle"></i>
+                        <div class="name_job">
+                            <div class="name">Usuario Técnico</div>
+                            <div class="job">Caja / Soporte</div>
+                        </div>
+                    </div>
+                    <a href="#" id="log_out"><i class="bx bx-log-out"></i></a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="welcome-text">
+                    <h1>Módulo de Liquidación y Caja</h1>
+                    <p>Procesa los pagos de los servicios técnicos finalizados y genera facturas</p>
+                </div>
+            </header>
+
+            <section class="billing-section">
+                <form action="#" method="POST" class="billing-form" onreset="resetTotal()">
+                    
+                    <div class="form-card">
+                        <h3><i class="bx bx-search-alt-2"></i> 1. Buscar Ticket de Soporte</h3>
+                        <div class="form-group">
+                            <label for="ticket-select">Seleccionar Ticket Pendiente de Pago</label>
+                            <select id="ticket-select" name="ticket_id" required>
+                                <option value="" disabled selected>Seleccione un ticket activo...</option>
+                                <option value="411">#TK-0411 - Carlos Mendoza (Laptop Asus)</option>
+                                <option value="412">#TK-0412 - Ana María Silva (Desktop Dell)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <h3><i class="bx bx-calculator"></i> 2. Detalles de la Liquidación</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="labor-cost">Costo de Mano de Obra ($)</label>
+                                <input type="number" id="labor-cost" name="labor_cost" placeholder="Ej. 80000" min="0" required oninput="calculateTotal()">
+                            </div>
+                            <div class="form-group">
+                                <label for="additional-cost">Costos Adicionales / Diagnóstico ($)</label>
+                                <input type="number" id="additional-cost" name="additional_cost" placeholder="Ej. 20000" min="0" value="0" oninput="calculateTotal()">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="billing-notes">Observaciones de la Factura</label>
+                            <textarea id="billing-notes" name="billing_notes" placeholder="Detalle del servicio prestado o mantenimiento realizado..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <h3><i class="bx bx-wallet"></i> 3. Método de Pago y Emisión</h3>
+                        
+                        <div class="form-group">
+                            <label for="payment-method">Forma de Pago</label>
+                            <select id="payment-method" name="payment_method" required>
+                                <option value="" disabled selected>Seleccione un método de pago...</option>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="transferencia">Transferencia Bancaria / Nequi</option>
+                                <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                            </select>
+                        </div>
+
+                        <div class="total-box">
+                            <span class="total-label">Total a Cobrar:</span>
+                            <span class="total-amount" id="display-total">$ 0.00</span>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bx bx-printer"></i> Procesar Pago y Emitir Factura
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            const labor = parseFloat(document.getElementById('labor-cost').value) || 0;
+            const additional = parseFloat(document.getElementById('additional-cost').value) || 0;
+            const total = labor + additional;
+            
+            // Formatear a moneda estándar colombiana/global
+            document.getElementById('display-total').innerText = '$ ' + total.toLocaleString('es-CO', { minimumFractionDigits: 2 });
+        }
+
+        function resetTotal() {
+            setTimeout(() => {
+                document.getElementById('display-total').innerText = '$ 0.00';
+            }, 10);
+        }
+    </script>
+</body>
+</html>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlquimiaTech | Acceso Personal Técnico</title>
+    <style>
+        :root {
+            --bg-space: #05070a;
+            --primary-purple: #7000ff;
+            --deep-blue: #1a2a6c;
+            --silver: #e2e2e2;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --neon-green: #00ff88;
+            --neon-red: #ff4d4d;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at center, #1a2a6c 0%, #05070a 70%, #301934 100%);
+            min-block-size: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--silver);
+            padding: 20px;
+        }
+
+        .auth-container {
+            inline-size: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            inline-size: 100%;
+            max-inline-size: 450px;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section { 
+            text-align: center; 
+            margin-block-end: 30px; 
+        }
+
+        .header-section span { 
+            color: var(--gold); 
+            font-size: 0.7rem; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+            display: block; 
+        }
+
+        .header-section h1 {
+            margin: 10px 0; 
+            font-weight: 800; 
+            letter-spacing: 2px; 
+            font-size: 1.6rem;
+            background: linear-gradient(to right, var(--silver), var(--gold), var(--silver));
+            background-clip: text;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+        }
+
+        .divider { 
+            block-size: 2px; 
+            inline-size: 60px; 
+            background: var(--gold); 
+            margin: 15px auto; 
+        }
+
+        .form-group { 
+            margin-block-end: 20px; 
+            text-align: start; 
+        }
+
+        label { 
+            font-size: 0.7rem; 
+            color: var(--gold); 
+            text-transform: uppercase; 
+            letter-spacing: 1.2px; 
+            margin-block-end: 8px; 
+            display: block; 
+        }
+
+        input {
+            inline-size: 100%; 
+            padding: 12px;
+            background: rgba(39, 37, 37, 0.986);
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            border-radius: 8px; 
+            color: var(--silver);
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus { 
+            outline: none; 
+            border-color: var(--gold); 
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .input-container { position: relative; }
+
+        .toggle-btn { 
+            position: absolute; 
+            inset-inline-end: 12px; 
+            inset-block-start: 50%; 
+            transform: translateY(-50%); 
+            background: none; 
+            border: none; 
+            color: var(--gold); 
+            cursor: pointer; 
+        }
+
+        .password-strength-wrapper {
+            margin-block-start: 8px;
+        }
+
+        .strength-meter { 
+            block-size: 4px; 
+            inline-size: 100%; 
+            background: #333; 
+            border-radius: 2px; 
+            overflow: hidden;
+            margin-block-end: 5px;
+        }
+
+        .strength-bar {
+            block-size: 100%;
+            inline-size: 0%;
+            transition: all 0.3s ease;
+        }
+
+        .strength-text { 
+            font-size: 0.65rem; 
+            color: #888; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+        }
+
+        .bar-weak { background: var(--neon-red); inline-size: 33%; }
+        .bar-medium { background: var(--gold); inline-size: 66%; }
+        .bar-strong { background: var(--neon-green); inline-size: 100%; }
+
+        .btn-main {
+            inline-size: 100%; 
+            padding: 16px;
+            background: linear-gradient(45deg, var(--deep-blue), var(--primary-purple));
+            color: white; 
+            border: 1px solid var(--gold);
+            border-radius: 8px; 
+            font-weight: bold;
+            cursor: pointer; 
+            text-transform: uppercase;
+            letter-spacing: 2px; 
+            margin-block-start: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            box-shadow: 0 0 25px rgba(112, 0, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-main:active {
+            filter: invert(1) hue-rotate(180deg);
+            transform: scale(0.98);
+        }
+
+        .forgot-link { 
+            display: block; 
+            text-align: end; 
+            margin-block-start: 10px; 
+            font-size: 0.75rem; 
+            color: var(--gold); 
+            text-decoration: none;
+            cursor: pointer; 
+        }
+
+        .forgot-link:hover {
+            text-shadow: 0 0 8px var(--gold-glow);
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="card">
+        <div class="header-section">
+            <span>Área Especializada</span>
+            <h1>ACCESO TÉCNICO</h1>
+            <div class="divider"></div>
+        </div>
+        <form action="tecnico_dashboard.html" method="POST">
+            <div class="form-group">
+                <label for="techEmail">Correo Institucional / Código</label>
+                <input type="email" id="techEmail" name="email" placeholder="tecnico@alquimiatech.com" required>
+            </div>
+            <div class="form-group">
+                <label for="techPass">Clave de Seguridad</label>
+                <div class="input-container">
+                    <input type="password" id="techPass" name="password" oninput="updateStrength(this)" placeholder="••••••••" required>
+                    <button type="button" class="toggle-btn" onclick="togglePass(this)">👁️</button>
+                </div>
+                <div class="password-strength-wrapper">
+                    <div class="strength-meter"><div id="techStrengthBar" class="strength-bar"></div></div>
+                    <span id="techStrengthText" class="strength-text">Validando credencial</span>
+                </div>
+                <a href="#" class="forgot-link">¿Problemas con tu credencial?</a>
+            </div>
+            <button type="submit" class="btn-main">Ingresar a Mesa de Trabajo</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function togglePass(btn) {
+        const input = btn.parentElement.querySelector('input');
+        input.type = input.type === 'password' ? 'text' : 'password';
+        btn.innerText = input.type === 'password' ? '👁️' : '🔒';
+    }
+
+    function updateStrength(input) {
+        const val = input.value;
+        const bar = document.getElementById('techStrengthBar');
+        const txt = document.getElementById('techStrengthText');
+        
+        bar.className = 'strength-bar';
+        
+        if (val.length === 0) {
+            txt.innerText = "Esperando entrada...";
+        } else if (val.length < 6) {
+            bar.classList.add('bar-weak');
+            txt.innerText = "Nivel Débil";
+            txt.style.color = "var(--neon-red)";
+        } else if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.length >= 8) {
+            bar.classList.add('bar-strong');
+            txt.innerText = "Acceso Seguro";
+            txt.style.color = "var(--neon-green)";
+        } else {
+            bar.classList.add('bar-medium');
+            txt.innerText = "Nivel Aceptable";
+            txt.style.color = "var(--gold)";
+        }
+    }
+</script>
+
+</body>
+</html>
